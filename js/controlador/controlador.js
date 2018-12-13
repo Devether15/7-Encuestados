@@ -14,8 +14,8 @@ Controlador.prototype = {
     this.modelo.borradoDePregunta(id);
   },
 
-  quitarPreguntas: function (preguntas) {
-    this.modelo.quitarPregunta(preguntas);
+  limpiarTodas: function (preguntas) {
+    this.modelo.borrandoTodasPreguntas(preguntas);
   },
 
   editarPregunta: function (id, changeTitle, idPregunta, btAddPregunta) {

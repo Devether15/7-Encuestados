@@ -8,7 +8,7 @@ var Modelo = function() {
   //inicializacion de eventos
   this.preguntaAgregada = new Evento(this);
   this.EliminarPregunta = new Evento(this);
-  this.quitarPreguntas = new Evento(this);
+  this.borrarTodas = new Evento(this);
   this.editandoPreguntas = new Evento(this);
   this.agregarVoto = new Evento(this);
 };
@@ -40,10 +40,10 @@ Modelo.prototype = {
     localStorage.setItem('preguntas', JSON.stringify(this.preguntas));
   },
 
-  borrarPregunta: function (preguntas) {
+  borrandoTodasPreguntas: function (preguntas) {
     preguntas.splice(0, this.preguntas.length);
     localStorage.clear();
-    this.quitarPreguntas.notificar();
+    this.borrarTodas.notificar();
   },
 
   editarPregunta: function (id, changeTitle, idPregunta, btAddPregunta) {

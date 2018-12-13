@@ -16,6 +16,9 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
   }),  
   this.modelo.editandoPreguntas.suscribir(function () {
     contexto.reconstruirLista();
+  }),
+  this.modelo.borrarTodas.suscribir(function() {
+    contexto.reconstruirLista();
   })
 };
 
@@ -85,7 +88,7 @@ VistaAdministrador.prototype = {
 
     e.borrarTodo.click(function () {
       let preguntas = contexto.modelo.preguntas;
-      contexto.controlador.quitarTodo(preguntas);
+      contexto.controlador.limpiarTodas(preguntas);
     });
 
     e.botonEditarPregunta.click(function () {
