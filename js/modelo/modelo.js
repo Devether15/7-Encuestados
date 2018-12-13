@@ -7,7 +7,10 @@ var Modelo = function() {
 
   //inicializacion de eventos
   this.preguntaAgregada = new Evento(this);
-  this.preguntaEliminada = new Evento(this);
+  this.EliminarPregunta = new Evento(this);
+  this.quitarPreguntas = new Evento(this);
+  this.editandoPreguntas = new Evento(this);
+  this.agregarVoto = new Evento(this);
 };
 
 Modelo.prototype = {
@@ -26,14 +29,51 @@ Modelo.prototype = {
     this.preguntaAgregada.notificar();
   },
 
-  quitarPregunta: function (id) {
+  borradoDePregunta: function (id) {
     this.preguntas.splice(id, 1);
     this.guardar();    
-    this.preguntaEliminada.notificar();
+    this.EliminarPregunta.notificar();
   },
 
   //se guardan las preguntas
   guardar: function(){
     localStorage.setItem('preguntas', JSON.stringify(this.preguntas));
+  },
+
+  borrarPregunta: function (preguntas) {
+    preguntas.splice(0, this.preguntas.length);
+    localStorage.clear();
+    this.quitarPreguntas.notificar();
+  },
+
+  editarPregunta: function (id, changeTitle, idPregunta, btAddPregunta) {
+    let title = changeTitle.html();
+    let btAdd = btAddPregunta.html();
+    this.preguntas.find(function (txtPreg) {
+      if (txtPreg.id === id) {
+        idPregunta.val(txtPreg.textoPregunta);
+      };
+    });
+    changeTitle.text('Edite la pregunta y sus respuestas');
+    btAddPregunta.text('Editar pregunta');
+    btAddPregunta.click(function () {
+      btAddPregunta.text(btAdd);
+      changeTitle.text(title);
+    })
+    this.borradoDePregunta(id);
+    this.editandoPreguntas.notificar();
+  },
+
+  agregarVoto: function (nombrePregunta, respuestaSeleccionada) {    
+    this.preguntas.forEach(element => {
+      if (element.textoPregunta===nombrePregunta) {
+        element.cantidadPorRespuesta.forEach(i=>{
+          if (respuestaSeleccionada===i.textoRespuesta) {
+            i.cantidad += 1;                    
+          };
+        });
+      }
+    });
+    this.agregarVoto.notificar();
   },
 };
