@@ -34,7 +34,7 @@ VistaAdministrador.prototype = {
 
   construirElementoPregunta: function(pregunta){
     var contexto = this;
-    let nuevoItem;
+    var nuevoItem;
     //completar
     //asignar a nuevoitem un elemento li con clase "list-group-item", id "pregunta.id" y texto "pregunta.textoPregunta"
     nuevoItem = $('<li/>', {
@@ -74,29 +74,34 @@ VistaAdministrador.prototype = {
         var respuesta = $(this).val();
         
         if ( respuesta ) {
-          respuestas.push({'textoRespuesta': respuesta, 'cantidad': 0});
+          var nuevaRespuesta = {'textoRespuesta':respuesta,'cantidad':0};
+          respuestas.push(nuevaRespuesta);
         };
+        if(respuestas.length>0){
+          this.modelo.agregarPregunta(value, respuestas);
+        }
       })
       contexto.limpiarFormulario();
       contexto.controlador.agregarPregunta(value, respuestas);
     });
     //asociar el resto de los botones a eventos
     e.botonBorrarPregunta.click(function () {
-      let id = parseInt($('.list-group-item.active').attr('id'));
+      var id = parseInt($('.list-group-item.active').attr('id'));
       contexto.controlador.borrarPregunta(id);
     });
 
     e.borrarTodo.click(function () {
-      let preguntas = contexto.modelo.preguntas;
+      var preguntas = contexto.modelo.preguntas;
       contexto.controlador.limpiarTodas(preguntas);
     });
 
     e.botonEditarPregunta.click(function () {
-      let id = parseInt($('.list-group-item.active').attr('id'));      
-      let changeTitle = $('#to-do');
-      let idPregunta = $('#pregunta');      
-      let btAddPregunta = $('#agregarPregunta');
-      contexto.controlador.editarPregunta(id, changeTitle, idPregunta, btAddPregunta);
+      var id = parseInt($('.list-group-item.active').attr('id'));      
+      var titulo = $('#to-do');
+      var PreguntaId = $('#pregunta');      
+      var botonAgregar = $('#agregarPregunta');
+      // var botonRespuesta = $('#optionTemplate');
+      contexto.controlador.editarPregunta(id, titulo, PreguntaId, botonAgregar, /*botonRespuesta*/);
     });
   },
 
