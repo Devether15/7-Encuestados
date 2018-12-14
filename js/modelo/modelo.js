@@ -46,20 +46,27 @@ Modelo.prototype = {
     this.borrarTodas.notificar();
   },
 
-   editarPregunta: function (id, titulo, preguntaId,) {
+  editarPregunta: function (id, nuevoTitulo, preguntaId,botonAgregar) {
     var titulo = nuevoTitulo.html();
+    var boton = botonAgregar.html();
     this.preguntas.find(function (txtPreg) {
       if (txtPreg.id === id) {
         preguntaId.val(txtPreg.textoPregunta);
       };
     });
-    titulo.text('Editar preguntas y respuestas');
-    botoncambiado.text('Editar');
-    nuevoTitulo.text(titulo);
+    nuevoTitulo.text('Editar preguntas y respuestas');
+    botonAgregar.text('Editar');
+    botonAgregar.click(function(valor){
+      if (valor.id === id){
+        botonAgregar.text(boton);
+        nuevoTitulo.text(titulo)
+        botonAgregar.text('Crear pregunta');
+      };
     })
+    
     this.borradoDePregunta(id);
     this.editandoPreguntas.notificar();
-    this.guardar();
+    
   },
 
   agregarVoto: function (nombrePregunta, respuestaSeleccionada) {    

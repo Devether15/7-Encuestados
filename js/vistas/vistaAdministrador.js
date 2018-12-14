@@ -77,9 +77,7 @@ VistaAdministrador.prototype = {
           var nuevaRespuesta = {'textoRespuesta':respuesta,'cantidad':0};
           respuestas.push(nuevaRespuesta);
         };
-        if(respuestas.length>0){
-          this.modelo.agregarPregunta(value, respuestas);
-        }
+        
       })
       contexto.limpiarFormulario();
       contexto.controlador.agregarPregunta(value, respuestas);

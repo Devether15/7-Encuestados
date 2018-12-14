@@ -8,9 +8,9 @@ var VistaUsuario = function(modelo, controlador, elementos) {
   var contexto = this;
 
   //suscripcion a eventos del modelo
-  this.modelo.preguntaAgregada.suscribir(function() {
-    contexto.reconstruirLista();
-  }),
+  // this.modelo.preguntaAgregada.suscribir(function() {
+  //   contexto.reconstruirLista();
+  // }),
   
   this.modelo.agregandoVoto.suscribir(function () {
     contexto.reconstruirGrafico();
